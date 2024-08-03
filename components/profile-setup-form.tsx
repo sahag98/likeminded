@@ -33,35 +33,38 @@ import {
 
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 const professions = [
-  { label: "Social Media Influencer", value: "si" },
-  { label: "Software Engineer", value: "se" },
-  { label: "Artist", value: "ar" },
-  { label: "Photographer", value: "pr" },
-  { label: "Creator", value: "pt" },
-  { label: "Founder", value: "fr" },
-  { label: "Other", value: "or" },
+  { label: "Social Media Influencer", value: "Social Media Influencer" },
+  { label: "Software Engineer", value: "Software Engineer" },
+  { label: "Artist", value: "Artist" },
+  { label: "Photographer", value: "Photographer" },
+  { label: "Creator", value: "Creator" },
+  { label: "Founder", value: "Founder" },
+  { label: "Other", value: "Other" },
 ] as const;
 
 const denomination = [
-  { label: "Pentecostal", value: "pl" },
-  { label: "Presbyterian", value: "pn" },
-  { label: "Catholic", value: "cc" },
-  { label: "Orthodox", value: "ox" },
-  { label: "Baptist", value: "bt" },
-  { label: "Non-denominational", value: "nl" },
-  { label: "Other", value: "or" },
+  { label: "Pentecostal", value: "Pentecostal" },
+  { label: "Presbyterian", value: "Presbyterian" },
+  { label: "Catholic", value: "Catholic" },
+  { label: "Orthodox", value: "Orthodox" },
+  { label: "Baptist", value: "Baptist" },
+  { label: "Non-denominational", value: "Non-denominational" },
+  { label: "Other", value: "Other" },
 ] as const;
 
 const lookingfor = [
-  { label: "Social Media Influencer", value: "si" },
-  { label: "Software Engineer", value: "se" },
-  { label: "Artist", value: "ar" },
-  { label: "Photographer", value: "pr" },
-  { label: "Creator", value: "pt" },
-  { label: "Founder", value: "fr" },
-  { label: "Other", value: "or" },
+  { label: "Social Media Influencer", value: "Social Media Influencer" },
+  { label: "Software Engineer", value: "Software Engineer" },
+  { label: "Artist", value: "Artist" },
+  { label: "Photographer", value: "Photographer" },
+  { label: "Creator", value: "Creator" },
+  { label: "Founder", value: "Founder" },
+  { label: "Other", value: "Other" },
 ] as const;
 
 const FormSchema = z.object({
@@ -83,13 +86,22 @@ export function ProfileSetupForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
-
+  const router = useRouter();
+  const createProfile = useMutation(api.profile.createProfile);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [lookingpopoverOpen, setLookingPopoverOpen] = useState(false);
   const [denominationpopoverOpen, setDenominationPopoverOpen] = useState(false);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("data", data);
+    // console.log("data", data);
+
+    createProfile({
+      username: data.username,
+      denomination: data.denomination,
+      profession: data.professions,
+      lookingfor: data.lookingfor,
+    });
+    router.push("/dashboard");
     toast({
       title: "You submitted the following values:",
       description: (

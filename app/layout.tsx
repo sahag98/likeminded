@@ -28,7 +28,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="min-h-[100vh-80px] px-4 relative">
+            <div className="min-h-[100vh-80px] relative">
               <Navbar />
               {children}
               <Toaster />
