@@ -9,4 +9,8 @@ export default defineSchema({
     profession: v.string(),
     lookingfor: v.string(),
   }),
+  connections: defineTable({
+    user_id: v.string(),
+    invited_user_id: v.string(),
+  }),
 });

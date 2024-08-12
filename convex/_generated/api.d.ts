@@ -14,6 +14,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as connection from "../connection.js";
 import type * as profile from "../profile.js";
 
 /**
@@ -25,6 +26,7 @@ import type * as profile from "../profile.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  connection: typeof connection;
   profile: typeof profile;
 }>;
 export declare const api: FilterApi<

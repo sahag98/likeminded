@@ -6,6 +6,7 @@ import Link from "next/link";
 
 const PlaylistsPage = async () => {
   const preloadedProfiles = await preloadQuery(api.profile.getAllProfiles);
+
   return (
     <main className="min-h-screen flex-col py-24 flex justify-center items-center lg:px-40 px-4">
       <div className="md:w-3/4 w-full flex flex-col  items-center justify-center gap-2">
@@ -16,10 +17,10 @@ const PlaylistsPage = async () => {
           Browse and connect with fellow Christian professionals across various
           industries and backgrounds.
         </p>
-        <LookingFor preloadedProfiles={preloadedProfiles} />
         <Link href={"/dashboard"} className="underline text-sm cursor-pointer">
           Skip for now
         </Link>
+        <LookingFor preloadedProfiles={preloadedProfiles} />
       </div>
     </main>
   );
